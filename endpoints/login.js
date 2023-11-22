@@ -12,7 +12,7 @@ const authHandler = require('../handlers/authhandler')
 //Configuro las variables de entorno del archivo  .env
 env.config();
 
-router.post('/gettoken', (req,res)=>{
+router.post('/login', (req,res)=>{
     try{
         const { user, password}= req.body;
         if(val.nullorempty(user)&& val.nullorempty(password)){
@@ -32,27 +32,5 @@ router.post('/gettoken', (req,res)=>{
         return res.status(500).json(errors.getMessage(500));
     }
 })
-
-
-router.post('/validartoken', (req,res)=>{
-    try{
-        const { token}= req.body;
-        if(val.nullorempty(token)){
-            console.log("Auth token error:",token);
-            return res.status(400).json(errors.getMessage(400));
-        }
-        let response = authHandler.validarToken(token);
-        if(response == null){
-            return res.status(401).json(errors.getMessage(401));
-        }else{
-            return res.status(200).json(response);
-        }
-
-    }catch(error){
-        console.log("Error en auth endpoint:",error)
-        return res.status(500).json(errors.getMessage(500));
-    }
-})
-
 
 module.exports = router;

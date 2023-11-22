@@ -2,7 +2,8 @@ const express = require('express');
 const cors = require('cors');
 
 //Endpoints
-const authRoute = require('./endpoints/auth.js');
+const authRoute = require('./endpoints/login.js');
+const playersRoute = require('./endpoints/players');
 
 //Almaceno instancia de express
 const app = express();
@@ -14,9 +15,11 @@ app.use(cors({
   }
 }));
 // Rutas de la API
-app.use('/api/auth',authRoute );
+app.use('/',authRoute );
+app.use('/',playersRoute );
 
 const PORT = process.env.PORT;
+
 app.listen(PORT, () => {
     console.log(`Servidor Express en ejecución en el puerto ${PORT}`);
 });
